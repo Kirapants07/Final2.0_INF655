@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
 import Card from '../shared/Card';
 import Header from './Header';
 import Navigation from './Navigation';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 
 export default function SignIn() {
@@ -12,6 +13,7 @@ export default function SignIn() {
         password: "",
     });
 
+    const navigate = useNavigate();
     const {email, password} =formData;
     const handleChange = (e) => {
         setFormData((previousState) =>({
@@ -19,11 +21,27 @@ export default function SignIn() {
             [e.target.id]: e.target.value,
         }));
     };
+
+    const handleSubmit = async (e) => {
+
+        try{
+            e.preventDefault();
+            const auth = getAuth();
+            const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+            if (userCredentials.user){
+                alert("Login successful");
+                navigate("/");
+            }
+        } catch (err) {
+            alert(err);
+        }
+
+    }
   return (
     <div>
         <Header />
         <Navigation />
-        <form className="loginInput">
+        <form className="loginInput" onSubmit={handleSubmit}>
             <Card >
             <h1>Sign In</h1>
                 <div>
