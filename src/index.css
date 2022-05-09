@@ -98,14 +98,15 @@ img {
   font-weight: bold;
 }
 
-.btn {
+button {
   color: rgb(12, 11, 11);
   border: 0;
   border-radius: 18px;
   color: rgb(3, 3, 3);
-  width: 100px;
+  width: 50%;
   height: 40px;
   cursor: pointer;
+  padding: 10px;
 }
 
 .delete,
@@ -140,8 +141,8 @@ img {
 }
 
 .inputbox {
-  min-height: px;
-  font-size: rem;
+  min-height: 10px;
+  font-size: 1rem;
   padding: 0.25rem;
   margin: 2%;
   border-radius: 15px;
@@ -177,4 +178,21 @@ img {
   justify-content: space-evenly;
   color: #fff;
   text-decoration: none;
+}
+
+.signuplinks {
+  display: flex;
+  justify-content: left;
+  color: #14b8b8;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.loginInput {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  padding: 10px;
 }
