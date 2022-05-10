@@ -52,9 +52,9 @@ const result = favoritesList;
         category={users.data.category} 
         year={users.data.year} 
         image={users.data.image} 
-        // trailer={movie.trailer} 
-        // ratings={movie.ratings} 
-        // checked ={movie.checked}
+        trailer={users.data.trailer} 
+        ratings={users.data.ratings} 
+        checked ={users.data.checked}
         // movie = {movie}
         />
       ))}
