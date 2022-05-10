@@ -5,33 +5,39 @@ import TaskContext from "../context/TaskContext";
 import SearchBar from "./SearchBar";
 
 export default function Tasks() {
-const {taskList} = useContext(TaskContext);
+const {movieList} = useContext(TaskContext);
 const [search, setSearch] =useState('');
 
 //Needs to fetch movie ids from user's firebase, then fetch each movie info from API.
 
-const result =taskList.filter((task) => 
-  task.title.toLowerCase().includes(search.toLowerCase()))
+const result = movieList;
+
+// const result =movieList.filter((task) => 
+//   task.title.toLowerCase().includes(search.toLowerCase()))
 
   if (!result || result.length === 0){
     return (
       <span>
-       <SearchBar search={search} setSearch={setSearch} />
+       {/* <SearchBar search={search} setSearch={setSearch} /> */}
         <h1>No Tasks Found</h1>
      </span>);
   }
 
   return (
     <span>
-        <SearchBar search={search} setSearch={setSearch} />
-      {result.map((task) => (
+        {/* <SearchBar search={search} setSearch={setSearch} /> */}
+      {result.map((movie) => (
         <Movie 
-        key={task.id}
-        id={task.id} 
-        title={task.title} 
-        description={task.description} 
-        checked ={task.checked}
-        task = {task}
+        favtitle={movie.title} 
+        favid ={movie.id}
+        // director={movie.director} 
+        // category={movie.category} 
+        // year={movie.year} 
+        // image={movie.image} 
+        // trailer={movie.trailer} 
+        // ratings={movie.ratings} 
+        // checked ={movie.checked}
+        // movie = {movie}
         />
       ))}
     </span>

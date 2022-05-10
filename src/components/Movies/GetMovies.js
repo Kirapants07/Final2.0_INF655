@@ -3,6 +3,21 @@ import Movie from "./Movie";
 import { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 
+import {
+  addDoc,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  limit,
+  collection,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { db } from "../../firebase.config";
+
+
+
 export default function GetMovies(search) {
     
     const [movieData, setMovieData] = useState([]);
@@ -29,6 +44,30 @@ export default function GetMovies(search) {
             }
             fetchMovies();
     }, [search] )
+
+
+    const [favoritesList, setFavoritesList] = useState([]);
+
+    useEffect(() => {
+      const fetchFavorites = async () => {
+        const movieListRef = collection(db, "movieList");
+        const q = query(movieListRef, orderBy("title"), limit(10));
+        const querySnapshot = await getDocs(q);
+        const movieList = [];
+        querySnapshot.forEach((doc) => {
+          return movieList.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+  
+        setFavoritesList(movieList);
+        console.log("favorite movies:");
+        console.log(movieList);
+        //setIsLoading(false);
+      };
+      fetchFavorites();
+    }, []);
 
     //console.log(movieData);
 

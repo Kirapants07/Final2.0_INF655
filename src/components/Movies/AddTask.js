@@ -5,14 +5,14 @@ import Card from '../shared/Card'
 export default function AddTask() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const {addTask, updateTask, taskEdit} = useContext(TaskContext);
+    const {addMovie, updateMovie, taskEdit: movieEdit} = useContext(TaskContext);
 
     useEffect(() => {
-        if (taskEdit.edit === true) {
-            setTitle(taskEdit.task.title);
-            setDescription(taskEdit.task.description);
+        if (movieEdit.edit === true) {
+            setTitle(movieEdit.task.title);
+            setDescription(movieEdit.task.description);
         }
-    }, [taskEdit]);
+    }, [movieEdit]);
 
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
@@ -29,10 +29,10 @@ export default function AddTask() {
                 title,
                 description
             };
-        if (taskEdit.edit === true) {
-            updateTask(taskEdit.task.id, newTask);
+        if (movieEdit.edit === true) {
+            updateMovie(movieEdit.task.id, newTask);
         }else {
-            addTask(newTask);
+            addMovie(newTask);
         }
             setTitle('');
             setDescription('');

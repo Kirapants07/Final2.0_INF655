@@ -4,20 +4,19 @@ import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import Card from "../shared/Card";
 import TaskContext from "../context/TaskContext";
 
-export default function Movie({ title, image, director, category, year, trailer, ratings, checked, movie}) {
-    //const {favorite} = useContext(TaskContext);
+export default function Movie({ id, title, image, director, category, year, trailer, ratings, checked, movie, favtitle, favid}) {
+    const {favorite, deleteMovie, checkMovie, editMovie, addMovie} = useContext(TaskContext);
 
-    let favorite = false;
     return (
         <Card>
-            <button checked={false} onClick={() => favorite=true} className="favorite" style={{color: "#FF1493"}}>
-                <p>
-                {favorite 
-                    ? <MdOutlineFavoriteBorder size={20} />
-                    : <MdOutlineFavorite size={20} />
-                }
-                Add to favorites
-                </p>
+            <button checked={false} onClick={() => addMovie(movie)} className="favorite" style={{color: "#FF1493"}}>
+                <div>
+                    {favorite 
+                        ? <MdOutlineFavoriteBorder size={20} />
+                        : <MdOutlineFavorite size={20} />
+                    }
+                    <p>Add to favorites</p>
+                </div>
 
             </button>
 
