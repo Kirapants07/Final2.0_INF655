@@ -5,7 +5,7 @@ import { TaskProvider } from "./components/context/TaskContext";
 import SignIn from './components/pages/SignIn';
 import SignUp from './components/pages/SignUp';
 import ForgotPassword from './components/pages/ForgotPassword';
-
+import SignOut from "./components/pages/SignOut";
 
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-out" element={<SignOut />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
 
