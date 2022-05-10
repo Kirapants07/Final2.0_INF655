@@ -15,12 +15,12 @@ export default function Navigation() {
                     <p>Home</p>
                 </Link>
             </li>
-            <li>
+            {/* <li>
                 <Link to="/favorites" style={{color: "white"}}>
                     <BsBookmarkHeartFill size={50} alt="favorites" />
                     <p>Favorites</p>
                 </Link>
-            </li>
+            </li> */}
             <li>
                 <Link to="/sign-in" style={{color: "white"}}>
                     <AiOutlineLogin size={50} alt="sign in" />

@@ -9,11 +9,10 @@ export default function Movies() {
     
     const result = GetMovies(search);
 
-  if (!result || result.length === 0){
+  if (!search || search.length === 0){
     return (
       <span>
        <SearchBar search={search} setSearch={setSearch} />
-        <h1>No Movies Found</h1>
      </span>);
   }
 

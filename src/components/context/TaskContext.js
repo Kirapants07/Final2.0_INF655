@@ -18,6 +18,7 @@ const TaskContext = createContext();
 export const TaskProvider = ({children}) => {
     const [isLoading, setIsLoading] = useState();
     const [favoritesList, setFavoritesList] = useState([]);
+    const [changeFavorites, setChangeFavorites] = useState(false);
     const [movieEdit, setMovieEdit] = useState({
         movie: {},
         edit: false,
@@ -26,8 +27,7 @@ export const TaskProvider = ({children}) => {
     useEffect(() => {
         const fetchFavorites = async () => {
           const movieListRef = collection(db, "movieList");
-          const q = query(movieListRef, orderBy("title"), limit(10));
-          const querySnapshot = await getDocs(q);
+          const querySnapshot = await getDocs(movieListRef);
           const movieList = [];
           querySnapshot.forEach((doc) => {
             return movieList.push({
@@ -37,15 +37,20 @@ export const TaskProvider = ({children}) => {
           });
     
           setFavoritesList(movieList);
-          setIsLoading(false);
+          setChangeFavorites(false);
+          console.log("favorite movies:");
+          console.log(movieList);
+          //setIsLoading(false);
         };
         fetchFavorites();
-      }, [favoritesList]);
+      }, [changeFavorites]);
+      
 
     const addMovie= async (newMovie) => {
         const docRef = await addDoc(collection(db, "movieList"), newMovie);
         console.log("Movie added with id: ", docRef.id);
         setFavoritesList([favoritesList]);
+        setChangeFavorites(true);
     };
 
     const editMovie = (id, movie) => {
@@ -60,6 +65,7 @@ export const TaskProvider = ({children}) => {
     const deleteMovie = async (id) => {
         if (window.confirm("Are you sure you want to delete?")) {
             await deleteDoc(doc(db, "movieList", id));
+            setChangeFavorites(true);
         }
     };
     
@@ -67,7 +73,7 @@ export const TaskProvider = ({children}) => {
         setFavoritesList(favoritesList.map((movie)=> movie.id === id ? {...movie, checked: !movie.checked} : movie));
     };
 
-    return <TaskContext.Provider value={{movieList: favoritesList, movieEdit, deleteMovie, favorite, addMovie, editMovie, updateMovie}}>{children}</TaskContext.Provider>;
+    return <TaskContext.Provider value={{favoritesList, movieEdit, deleteMovie, favorite, addMovie, editMovie, updateMovie}}>{children}</TaskContext.Provider>;
 };
 
 export default TaskContext;

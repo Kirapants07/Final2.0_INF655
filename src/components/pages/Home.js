@@ -3,7 +3,7 @@ import Movies from '../Movies/Movies';
 import Header from './Header';
 import Footer from './Footer';
 import Navigation from './Navigation';
-import Favorites from './Favorites';
+import Favorites from '../Movies/Favorites';
 
 export default function Home() {
     return (

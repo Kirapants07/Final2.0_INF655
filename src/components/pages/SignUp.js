@@ -13,10 +13,11 @@ export default function SignUp() {
         name: "",
         email: "",
         password: "",
+        favorites: [],
     });
 
     const navigate = useNavigate();
-    const {name, email, password} = formData;
+    const {name, email, password, favorites} = formData;
 
     const handleChange = (e) => {
         setFormData((previousState) =>({
@@ -32,7 +33,7 @@ export default function SignUp() {
             const auth = getAuth();
 
             //register user
-            const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+            const userCredentials = await createUserWithEmailAndPassword(auth, email, password, favorites);
  
             const user = userCredentials.user;
             updateProfile(auth.currentUser, {displayName: name});

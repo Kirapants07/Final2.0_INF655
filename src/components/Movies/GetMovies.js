@@ -45,30 +45,6 @@ export default function GetMovies(search) {
             fetchMovies();
     }, [search] )
 
-
-    const [favoritesList, setFavoritesList] = useState([]);
-
-    useEffect(() => {
-      const fetchFavorites = async () => {
-        const movieListRef = collection(db, "movieList");
-        const q = query(movieListRef, orderBy("title"), limit(10));
-        const querySnapshot = await getDocs(q);
-        const movieList = [];
-        querySnapshot.forEach((doc) => {
-          return movieList.push({
-            id: doc.id,
-            data: doc.data(),
-          });
-        });
-  
-        setFavoritesList(movieList);
-        console.log("favorite movies:");
-        console.log(movieList);
-        //setIsLoading(false);
-      };
-      fetchFavorites();
-    }, []);
-
     //console.log(movieData);
 
     // useEffect (()=>{
