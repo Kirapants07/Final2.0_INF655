@@ -19,8 +19,7 @@ export default function Movie({ id, title, image, director, category, year, trai
                 </div>
 
             </button>
-
-            <img src ={`https://image.tmdb.org/t/p/w185/${image}`} alt="Movie poster" />
+            {image ? <img src ={`https://image.tmdb.org/t/p/w185/${image}`} alt="Movie poster" /> : <p>No image found</p>}
 
             <h1 className="text-display">{title}</h1>
             <p className="text-display">Director: {director}</p>

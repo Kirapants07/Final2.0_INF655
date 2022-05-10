@@ -4,9 +4,6 @@ import {
   addDoc,
   doc,
   getDocs,
-  orderBy,
-  query,
-  limit,
   collection,
   updateDoc,
   deleteDoc,
@@ -25,8 +22,10 @@ export const TaskProvider = ({children}) => {
     });
 
     useEffect(() => {
+        let email = "";
         const fetchFavorites = async () => {
-          const movieListRef = collection(db, "movieList");
+        console.log(email);
+          const movieListRef = collection(db, "users");
           const querySnapshot = await getDocs(movieListRef);
           const movieList = [];
           querySnapshot.forEach((doc) => {
@@ -47,7 +46,7 @@ export const TaskProvider = ({children}) => {
       
 
     const addMovie= async (newMovie) => {
-        const docRef = await addDoc(collection(db, "movieList"), newMovie);
+        const docRef = await addDoc(collection(db, "users"), newMovie);
         console.log("Movie added with id: ", docRef.id);
         setFavoritesList([favoritesList]);
         setChangeFavorites(true);
@@ -58,15 +57,13 @@ export const TaskProvider = ({children}) => {
     };
 
     const updateMovie = async (id, updMovie) => {
-        const docRef = doc(db, "movieList", id);
+        const docRef = doc(db, "users", id);
         await updateDoc(docRef, updMovie);
     };
 
     const deleteMovie = async (id) => {
-        if (window.confirm("Are you sure you want to delete?")) {
-            await deleteDoc(doc(db, "movieList", id));
+            await deleteDoc(doc(db, "users", id));
             setChangeFavorites(true);
-        }
     };
     
     const favorite = (id) => {

@@ -30,6 +30,7 @@ export default function GetMovies(search) {
     const URL_TRAILER=`http://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=videos;` //link is https://www.youtube.com/watch?v=${result.results[0].key}
     let configData;
     
+    //search movies from TMDB
     useEffect (()=>{
         const fetchMovies = async () =>{
             if (search){

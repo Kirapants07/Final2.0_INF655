@@ -10,7 +10,9 @@ import { Link } from "react-router-dom";
 export default function Tasks() {
 const {favoritesList} = useContext(TaskContext);
 const [search, setSearch] =useState('');
+const [username, setUsername] = useState("Guest");
 
+//setUsername(favoritesList.data.name);
 
 //Needs to fetch movie ids from user's firebase, then fetch each movie info from API.
 
@@ -30,10 +32,6 @@ else //user is logged in
   
 const result = favoritesList;
 
-// const result =movieList.filter((task) => 
-//   task.title.toLowerCase().includes(search.toLowerCase()))
-
-
   if (!result || result.length === 0){
     return (
       <span>
@@ -44,16 +42,16 @@ const result = favoritesList;
 
   return (
     <span>
-      <h1>Favorite movies list</h1>
+      <h1>{username}'s movies list</h1>
       {result.map((users) => (
         <FavoriteMovie 
         title={users.data.title} 
-        id ={users.data.movie_id}
+        id ={users.data.id}
         fireId = {users.id}
         // director={movie.director} 
-        // category={movie.category} 
-        // year={movie.year} 
-        // image={movie.image} 
+        category={users.data.category} 
+        year={users.data.year} 
+        image={users.data.image} 
         // trailer={movie.trailer} 
         // ratings={movie.ratings} 
         // checked ={movie.checked}

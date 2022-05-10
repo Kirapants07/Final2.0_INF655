@@ -13,6 +13,8 @@ export const useAuthStatus = () =>{
         const auth = getAuth();
         onAuthStateChanged(auth, (user) =>{
             if (user) {
+                //console.log(user.uid);
+                //console.log(user.email);
                 setSignedIn(true);
             }
             setCheckingStatus(false);
