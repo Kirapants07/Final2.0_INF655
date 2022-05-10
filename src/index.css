@@ -25,6 +25,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 
 }
 
@@ -32,7 +33,7 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  overflow: auto;
+
 }
 
 li {
@@ -86,11 +87,15 @@ li a:hover {
   position: relative;
   height: -moz-fit-content;
   height: fit-content;
+  overflow: hidden;
+  /* float: left;
+  width: 100%; */
 }
+
 
 img {
   float: left;
-  padding: 0 20px 20px 0;
+  padding: 0 10px 0px 0;
  }
 
 .text-display {

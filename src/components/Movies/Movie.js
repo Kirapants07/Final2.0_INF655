@@ -9,25 +9,20 @@ export default function Movie({ id, title, image, director, category, year, trai
 
     return (
         <Card>
-            <button checked={false} onClick={() => addMovie(movie)} className="favorite" style={{color: "#FF1493"}}>
-                <div>
-                    {favorite 
-                        ? <MdOutlineFavoriteBorder size={20} />
-                        : <MdOutlineFavorite size={20} />
-                    }
-                    <p>Add to favorites</p>
-                </div>
+                <button checked={false} onClick={() => addMovie(movie)} className="favorite" style={{color: "#FF1493"}}>
+                    <div>
+                        <p>
+                        {favorite 
+                            ? <MdOutlineFavoriteBorder size={20} />
+                            : <MdOutlineFavorite size={20} />
+                        }
+                        Add to favorites</p>
+                    </div>
 
-            </button>
-            {image ? <img src ={`https://image.tmdb.org/t/p/w185/${image}`} alt="Movie poster" /> : <p>No image found</p>}
+                </button>
+                {image ? <img src ={`https://image.tmdb.org/t/p/w92/${image}`} alt="Movie poster" /> : <p>No image found</p>}
 
-            <h1 className="text-display">{title}</h1>
-            <p className="text-display">Director: {director}</p>
-            <p className="text-display">Categories: {category} NEED TO FETCH NAMED CAT</p>
-            <p className="text-display">Release Year: {year.split('-')[0]}</p>
-            <p className="text-display">Rating: {ratings}</p>
-            <p className="text-display"><a href= {`https://www.youtube.com/watch?v=${trailer}`}>Watch Trailer</a> NEED TO FETCH KEY</p>
-            {/* <p>{description}</p> */}
+                <h2 className="text-display">{title}</h2>
         </Card>
     )
 }

@@ -29,7 +29,6 @@ export default function SignIn() {
             const auth = getAuth();
             const userCredentials = await signInWithEmailAndPassword(auth, email, password);
             if (userCredentials.user){
-                alert("Login successful");
                 navigate("/");
             }
         } catch (err) {

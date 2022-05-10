@@ -7,15 +7,23 @@ export const useAuthStatus = () =>{
     const [signedIn, setSignedIn] = useState(false);
     const [checkingStatus, setCheckingStatus] = useState(true);
     const isMounted = useRef(true);
+    const [useremail, setUseremail] = useState("Guest");
+    const [userUid, setUserUid] = useState("");
+
 
     useEffect(() =>{
         if(isMounted){
         const auth = getAuth();
         onAuthStateChanged(auth, (user) =>{
             if (user) {
-                //console.log(user.uid);
+                console.log(user.uid);
                 //console.log(user.email);
                 setSignedIn(true);
+                setUseremail(user.email);
+                setUserUid(user.uid);
+            }
+            else {
+                setSignedIn(false);
             }
             setCheckingStatus(false);
             });
@@ -24,5 +32,5 @@ export const useAuthStatus = () =>{
             isMounted.current = false;
         }
     }, [isMounted]);
-    return {signedIn, checkingStatus};
+    return {signedIn, checkingStatus, userUid, useremail};
 }

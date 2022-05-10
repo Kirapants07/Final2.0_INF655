@@ -16,6 +16,14 @@ export default function Movies() {
      </span>);
   }
 
+  if (!result || result.length === 0){
+    return (
+        <span>
+         <SearchBar search={search} setSearch={setSearch} />
+          <h1>Movie Not available</h1>
+       </span>);
+  }
+
   return (
     <span>
         <SearchBar search={search} setSearch={setSearch} />

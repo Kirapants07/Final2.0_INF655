@@ -8,15 +8,14 @@ import { useAuthStatus } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 
 export default function Tasks() {
+
 const {favoritesList} = useContext(TaskContext);
 const [search, setSearch] =useState('');
-const [username, setUsername] = useState("Guest");
-
-//setUsername(favoritesList.data.name);
 
 //Needs to fetch movie ids from user's firebase, then fetch each movie info from API.
 
-const { signedIn, checkingStatus } = useAuthStatus();
+const { signedIn, checkingStatus, useremail, userUid } = useAuthStatus();
+//user is not logged in
 if (!signedIn){
   return (
     <span>
@@ -40,9 +39,10 @@ const result = favoritesList;
      </span>);
   }
 
+
   return (
     <span>
-      <h1>{username}'s movies list</h1>
+      <h1>{useremail}'s Favorites list</h1>
       {result.map((users) => (
         <FavoriteMovie 
         title={users.data.title} 
@@ -55,7 +55,7 @@ const result = favoritesList;
         trailer={users.data.trailer} 
         ratings={users.data.ratings} 
         checked ={users.data.checked}
-        // movie = {movie}
+        //movie = {users.data}
         />
       ))}
     </span>
