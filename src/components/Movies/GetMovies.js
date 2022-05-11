@@ -30,6 +30,24 @@ export default function GetMovies(search) {
     const URL_TRAILER=`http://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=videos;` //link is https://www.youtube.com/watch?v=${result.results[0].key}
     let configData;
     
+    // useEffect(() => {
+    //   const fetchMovies = async () => {
+    //     const searchMovies = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`)
+    //       .then(res => res.json());
+    //       const searchResult = searchMovies.results;
+    //       console.log(searchResult);
+
+    //       const movieIds = searchResult.map(movie => movie.id)};
+    //       const movieReq = {method: 'GET', body: JSON.stringify({movieIds}) };
+
+    //       const movieData = await fetch(`https://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=credits`, movieReq)
+    //         .then(res => res.json());
+    //       console.log(movieData);
+
+    //   }
+    //   fetchMovies();
+    // }, [search]);
+
     //search movies from TMDB
     useEffect (()=>{
         const fetchMovies = async () =>{
@@ -38,6 +56,7 @@ export default function GetMovies(search) {
                     const response =  await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`);
                     const movieList = await response.json();
                     setMovieData(movieList.results);
+
                 } catch (err) {
                     console.log(err);
                 }
@@ -45,6 +64,44 @@ export default function GetMovies(search) {
             }
             fetchMovies();
     }, [search] )
+
+    useEffect (()=>{
+    const movieDataById =[];
+    const fetchTrailer = async () =>{
+      await Promise.all(
+        movieData.map(async (movie) => {
+          const res = await fetch(`http://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`);
+          const list = await res.json();
+          movieDataById.push(list);
+        }))
+
+        setMovieByID(movieDataById);
+    }
+    fetchTrailer();
+  }, [search] )
+
+
+
+
+
+
+    // //search movies from TMDB
+    // useEffect (()=>{
+    //     const fetchMovies = async () =>{
+    //         if (search){
+    //             try{
+    //                 const response =  await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`);
+    //                 const movieList = await response.json();
+    //                 setMovieData(movieList.results);
+    //                 console.log(movieList);
+    //             } catch (err) {
+    //                 console.log(err);
+    //             }
+    //           }
+    //         }
+    //         fetchMovies();
+    // }, [search] )
+
 
     //console.log(movieData);
 
@@ -64,19 +121,23 @@ export default function GetMovies(search) {
     // }, [search] )
 
 
-    let movieArray = movieData.map(key => {
+    console.log(movieById);
+
+    let movieArray = movieById.map(key => {
       let movie = {
         "id": key.id,
         "title": key.original_title,
         //"director":
-        "category": key.genre_ids, //need to link to category names
+        "category": key.genres, //need to link to category names
         "year": key.release_date,
         "image": key.poster_path, //need to fetch
         "trailer": key.video, //need to link
-        "ratings": key.popularity
+        "ratings": key.vote_average,
       };
       return movie;
     });
+
+    console.log(movieArray);
 
     // const videoUrls = async () => {
     //     for(let i =0 ;i< 20;i++){
