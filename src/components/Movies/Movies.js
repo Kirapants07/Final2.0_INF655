@@ -27,8 +27,9 @@ export default function Movies() {
   }
 
   return (
-    <span>
+    <span className= "dropdown">
         <SearchBar search={search} setSearch={setSearch} />
+        <div class="dropdown-content">
         {result.map((movie) => (
         <Movie 
         title={movie.title} 
@@ -40,8 +41,10 @@ export default function Movies() {
         ratings={movie.ratings} 
         checked ={movie.checked}
         movie = {movie}
+        setSearch={setSearch}
         />
       ))}
+      </div>
     </span>
   );
 }
