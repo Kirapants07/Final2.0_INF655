@@ -26,10 +26,8 @@ if (!signedIn){
       </h1>
   </span>);
 }
-else //user is logged in 
-{
   
-const result = favoritesList;
+const result = favoritesList.filter(movie => movie.data.user == userUid);
 
   if (!result || result.length === 0){
     return (
@@ -38,7 +36,6 @@ const result = favoritesList;
         <h1>No Favorites Found</h1>
      </span>);
   }
-
 
   return (
     <span>
@@ -60,5 +57,4 @@ const result = favoritesList;
       ))}
     </span>
   );
-}
 }
