@@ -25,7 +25,13 @@ export default function Movie({ fireId, id, title, image, director, category, ye
             <p className="text-display">Categories: {category.map(i => i.name).join(', ')}</p>
             <p className="text-display">Release Year: {year.split('-')[0]}</p>
             <p className="text-display">Rating: {ratings}</p>
-            <p className="text-display"><a href= {`https://www.youtube.com/watch?v=${trailer}`}>Watch Trailer</a> NEED TO FETCH KEY</p>
+            <p className="text-display">
+                {trailer.results[0].key 
+                    ? <a href= {`https://www.youtube.com/watch?v=${trailer.results[0].key}`}>Watch Trailer</a>
+                    : <p>No Trailer Found</p>
+                }
+                
+                </p>
             {/* <p>{description}</p> */}
         </Card>
     )

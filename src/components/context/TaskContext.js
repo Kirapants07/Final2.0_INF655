@@ -108,7 +108,7 @@ export const TaskProvider = ({children}) => {
               "year": i.release_date,
               "image": i.poster_path, //need to fetch
               "trailer": i.videos, //need to link
-              "ratings": i.popularity
+              "ratings": i.vote_average
             };
             return movie;
           });
