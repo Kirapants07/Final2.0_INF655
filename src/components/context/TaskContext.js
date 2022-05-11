@@ -118,6 +118,7 @@ export const TaskProvider = ({children}) => {
         newMovie.user = userUid;
         const docRef = await addDoc(collection(db, "movieList"), newMovie);
         setChangeFavorites(true);
+        alert("Movie added to Favorites List");
     };
 
     const editMovie = (id, movie) => {

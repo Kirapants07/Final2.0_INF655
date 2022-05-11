@@ -27,7 +27,7 @@ export default function Movie({ fireId, id, title, image, director, category, ye
             <p className="text-display">Rating: {ratings}</p>
             <p className="text-display">
                 {trailer.results[0].key 
-                    ? <a href= {`https://www.youtube.com/watch?v=${trailer.results[0].key}`} className="signuplinks">Watch Trailer</a>
+                    ? <a href= {`https://www.youtube.com/watch?v=${trailer.results[0].key}`} target="_blank" className="signuplinks">Watch Trailer</a>
                     : <p>No Trailer Found</p>
                 }
                 
