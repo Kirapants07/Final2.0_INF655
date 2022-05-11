@@ -47,8 +47,6 @@ export const TaskProvider = ({children}) => {
     
           setFavoritesList(movieList);
           setChangeFavorites(false);
-          console.log("favorite movies:");
-          console.log(movieList);
 
         };
         fetchFavorites();
@@ -71,8 +69,10 @@ export const TaskProvider = ({children}) => {
                         console.log(err);
                     }
                   }
+                }
+              
                 fetchMovies();
-
+                
                 const movieDataById =[];
                 const fetchTrailer = async () =>{
                   await Promise.all(
@@ -81,33 +81,35 @@ export const TaskProvider = ({children}) => {
                       const list = await res.json();
                       movieDataById.push(list);
                     }))
-            
                     setMovieByID(movieDataById);
-                    console.log(movieDataById);
-                    console.log(movieDataById[0].credits.crew.filter(i => i.job == "Director")[0].name)
                 }
                 fetchTrailer();
-              }
+
                 
         }, [search] )
 
         let movieArray = [];
 
-        if (movieById) {
-            movieArray = movieById.map(i => {
-            let movie = {
-              "id": i.id,
-              "title": i.original_title,
-              "director": i.credits.crew.filter(i => i.job == "Director")[0].name,
-              "category": i.genres, //need to link to category names
-              "year": i.release_date,
-              "image": i.poster_path, //need to fetch
-              "trailer": i.videos, //need to link
-              "ratings": i.vote_average
-            };
-            return movie;
-          });
+        try{
+            if (movieById) {
+              movieArray = movieById.map(i => {
+              let movie = {
+                "id": i.id,
+                "title": i.original_title,
+                "director": i.credits.crew.filter(i => i.job == "Director")[0].name,
+                "category": i.genres, //need to link to category names
+                "year": i.release_date,
+                "image": i.poster_path, //need to fetch
+                "trailer": i.videos, //need to link
+                "ratings": i.vote_average
+              };
+              return movie;
+            });
+          }
+        }catch (err) {
+          console.log(err);
         }
+
           return (movieArray);
 
     }
@@ -115,7 +117,6 @@ export const TaskProvider = ({children}) => {
     const addMovie= async (newMovie) => {
         newMovie.user = userUid;
         const docRef = await addDoc(collection(db, "movieList"), newMovie);
-        //console.log("Movie added with id: ", docRef.id);
         setChangeFavorites(true);
     };
 
