@@ -71,7 +71,6 @@ export const TaskProvider = ({children}) => {
                         console.log(err);
                     }
                   }
-                }
                 fetchMovies();
 
                 const movieDataById =[];
@@ -88,6 +87,7 @@ export const TaskProvider = ({children}) => {
                     console.log(movieDataById[0].credits.crew.filter(i => i.job == "Director")[0].name)
                 }
                 fetchTrailer();
+              }
                 
         }, [search] )
 
