@@ -9,7 +9,7 @@ export default function Movie({ id, title, image, director, category, year, trai
 
     return (
         <SmallCard>
-                <button checked={false} onClick={() => {addMovie(movie); setSearch("")}} className="favorite" style={{color: "#FF1493"}}>
+                <button checked={false} onClick={(e) => {addMovie(movie); setSearch(""); }} className="favorite" style={{color: "#FF1493"}}>
                         <p>
                         {favorite 
                             ? <MdOutlineFavoriteBorder size={20} />
