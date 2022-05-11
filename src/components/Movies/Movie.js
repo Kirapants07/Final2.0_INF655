@@ -24,4 +24,3 @@ export default function Movie({ id, title, image, director, category, year, trai
         </SmallCard>
     )
 }
-

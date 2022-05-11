@@ -55,54 +55,12 @@ export const TaskProvider = ({children}) => {
           setChangeFavorites(false);
           console.log("favorite movies:");
           console.log(movieList);
-          //setIsLoading(false);
+
         };
         fetchFavorites();
 
-        const movieDataById =[];
-        const fetchTrailer = async () =>{
-          await Promise.all(
-            movieData.map(async (movie) => {
-              const res = await fetch(`http://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`);
-              const list = await res.json();
-              movieDataById.push(list);
-            }))
-    
-            setMovieByID([movieDataById]);
-            console.log(movieDataById);
-        }
-        fetchTrailer();
       }, [signedIn, changeFavorites]); //needs to check when page is refreshed
 
-
-    //  const isMounted = useRef(true);
-
-    // useEffect(() =>{
-    //     if(isMounted){
-    //         const fetchFavorites = async () => {
-    //             const movieListRef = collection(db, "movieList");
-    //             //console.log(userUid);
-    //             const q = query(collection(db, "movieList"), where("user", "==", userUid));
-    //             const querySnapshot = await getDocs(q);
-    //           //const querySnapshot = await getDocs(movieListRef);
-    //             const movieList = [];
-    //             querySnapshot.forEach((doc) => {
-    //               return movieList.push({
-    //                 id: doc.id,
-    //                 data: doc.data(),
-    //               });
-    //             });
-          
-    //             setFavoritesList(movieList);
-    //             console.log("favorite movies:");
-    //             console.log(movieList);
-    //             //setIsLoading(false);
-    //           };
-    //         }
-    //         return () => {
-    //             isMounted.current = false;
-    //         }
-    //     }, [isMounted]);
     
     const GetMovies = (search) => {
         const URL_BASE_SEARCHMOVIES = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`;
@@ -121,21 +79,56 @@ export const TaskProvider = ({children}) => {
                   }
                 }
                 fetchMovies();
+
+                const movieDataById =[];
+                const fetchTrailer = async () =>{
+                  await Promise.all(
+                    movieData.map(async (movie) => {
+                      const res = await fetch(`http://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`);
+                      const list = await res.json();
+                      movieDataById.push(list);
+                    }))
+            
+                    setMovieByID(movieDataById);
+                    console.log(movieDataById);
+                }
+                fetchTrailer();
+                
         }, [search] )
 
-        let movieArray = movieData.map(key => {
+        let movieArray = [];
+
+        if (movieById) {
+            movieArray = movieById.map(i => {
             let movie = {
-              "id": key.id,
-              "title": key.original_title,
+              "id": i.id,
+              "title": i.original_title,
               //"director":
-              "category": key.genre_ids, //need to link to category names
-              "year": key.release_date,
-              "image": key.poster_path, //need to fetch
-              "trailer": key.video, //need to link
-              "ratings": key.popularity
+              "category": i.genres, //need to link to category names
+              "year": i.release_date,
+              "image": i.poster_path, //need to fetch
+              "trailer": i.videos, //need to link
+              "ratings": i.popularity
             };
             return movie;
           });
+        }
+ 
+
+        // let movieArray = movieData.map(key => {
+        //     let movie = {
+        //       "id": key.id,
+        //       "title": key.original_title,
+        //       //"director":
+        //       "category": key.genre_ids, //need to link to category names
+        //       "year": key.release_date,
+        //       "image": key.poster_path, //need to fetch
+        //       "trailer": key.video, //need to link
+        //       "ratings": key.popularity
+        //     };
+        //     return movie;
+
+
           return (movieArray);
 
     }
