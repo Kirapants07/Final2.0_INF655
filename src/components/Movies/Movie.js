@@ -10,18 +10,17 @@ export default function Movie({ id, title, image, director, category, year, trai
     return (
         <SmallCard>
                 <button checked={false} onClick={(e) => {addMovie(movie); setSearch(""); }} className="favorite" style={{color: "#FF1493"}}>
-                        <p>
                         {favorite 
                             ? <MdOutlineFavoriteBorder size={20} />
                             : <MdOutlineFavorite size={20} />
                         }
-                        Add to favorites</p>
+                        <h2 className="dropdowntext"> {title}</h2>
                 </button>
                 {/* {image ? <img src ={`https://image.tmdb.org/t/p/w92/${image}`} alt="Movie poster" /> : <p>No image found</p>} */}
 
                 
 
-                <h2 className="text-display">{title}</h2>
+
         </SmallCard>
     )
 }

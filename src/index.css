@@ -95,7 +95,7 @@ li a:hover {
 .smallcard {
   background-color: #cbecec;
   color: #333;
-  padding: 40px 10px;
+  padding: 30px 10px;
   margin: 0;
   position: relative;
   height: -moz-fit-content;
@@ -146,6 +146,7 @@ button {
   cursor: pointer;
   background: none;
   border: none;
+  text-align: left;
 }
 
 .check{
@@ -223,5 +224,9 @@ button {
 
 .dropdown {
   position: relative;
+  display: inline;
+}
+
+.dropdowntext {
   display: inline;
 }
