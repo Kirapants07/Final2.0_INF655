@@ -45,7 +45,7 @@ const result = favoritesList.filter(movie => movie.data.user == userUid);
         title={users.data.title} 
         id ={users.data.id}
         fireId = {users.id}
-        // director={movie.director} 
+        director={users.data.director} 
         category={users.data.category} 
         year={users.data.year} 
         image={users.data.image} 

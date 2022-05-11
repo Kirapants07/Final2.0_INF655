@@ -27,12 +27,6 @@ export const TaskProvider = ({children}) => {
     const [movieData, setMovieData] = useState([]);
     const [movieById, setMovieByID] = useState([]);
     const API_KEY = '2cc400c668df650508e7074fd7e11e01';
-    const URL_BASE_GENRELIST = "https://api.themoviedb.org/3/genre/movie/list?";
-
-    const MOVIE_ID= "550";
-    const URL_DIRECTOR= `https://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=credits`; //result.credits.crew[12].name
-    const URL_TRAILER=`http://api.themoviedb.org/3/movie/${MOVIE_ID}?api_key=${API_KEY}&append_to_response=videos;` //link is https://www.youtube.com/watch?v=${result.results[0].key}
-    let configData;
 
 
     const { signedIn, checkingStatus, userUid } = useAuthStatus();
@@ -84,13 +78,14 @@ export const TaskProvider = ({children}) => {
                 const fetchTrailer = async () =>{
                   await Promise.all(
                     movieData.map(async (movie) => {
-                      const res = await fetch(`http://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos`);
+                      const res = await fetch(`http://api.themoviedb.org/3/movie/${movie.id}?api_key=${API_KEY}&append_to_response=videos,credits`);
                       const list = await res.json();
                       movieDataById.push(list);
                     }))
             
                     setMovieByID(movieDataById);
                     console.log(movieDataById);
+                    console.log(movieDataById[0].credits.crew.filter(i => i.job == "Director")[0].name)
                 }
                 fetchTrailer();
                 
@@ -103,7 +98,7 @@ export const TaskProvider = ({children}) => {
             let movie = {
               "id": i.id,
               "title": i.original_title,
-              //"director":
+              "director": i.credits.crew.filter(i => i.job == "Director")[0].name,
               "category": i.genres, //need to link to category names
               "year": i.release_date,
               "image": i.poster_path, //need to fetch
@@ -113,22 +108,6 @@ export const TaskProvider = ({children}) => {
             return movie;
           });
         }
- 
-
-        // let movieArray = movieData.map(key => {
-        //     let movie = {
-        //       "id": key.id,
-        //       "title": key.original_title,
-        //       //"director":
-        //       "category": key.genre_ids, //need to link to category names
-        //       "year": key.release_date,
-        //       "image": key.poster_path, //need to fetch
-        //       "trailer": key.video, //need to link
-        //       "ratings": key.popularity
-        //     };
-        //     return movie;
-
-
           return (movieArray);
 
     }
