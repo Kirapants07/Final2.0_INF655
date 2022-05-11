@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Movie from "./Movie";
 import { useState } from "react";
 import SearchBar from "./SearchBar";
-import GetMovies from './GetMovies';
+import TaskContext from "../context/TaskContext";
+
 
 export default function Movies() {
     const [search, setSearch] = useState('');
+    const { GetMovies } = useContext(TaskContext);
     
     const result = GetMovies(search);
 
