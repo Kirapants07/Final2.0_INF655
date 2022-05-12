@@ -33,7 +33,6 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-
 }
 
 li {
@@ -88,8 +87,6 @@ li a:hover {
   height: -moz-fit-content;
   height: fit-content;
   overflow: hidden;
-  /* float: left;
-  width: 100%; */
 }
 
 .smallcard {

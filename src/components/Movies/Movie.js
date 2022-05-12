@@ -4,8 +4,8 @@ import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import TaskContext from "../context/TaskContext";
 import SmallCard from "../shared/SmallCard";
 
-export default function Movie({ id, title, image, director, category, year, trailer, ratings, checked, movie, setSearch}) {
-    const {favorite, deleteMovie, checkMovie, editMovie, addMovie} = useContext(TaskContext);
+export default function Movie({ title, movie, setSearch}) {
+    const {favorite, addMovie} = useContext(TaskContext);
 
     return (
         <SmallCard>
@@ -16,11 +16,6 @@ export default function Movie({ id, title, image, director, category, year, trai
                         }
                         <h2 className="dropdowntext"> {title}</h2>
                 </button>
-                {/* {image ? <img src ={`https://image.tmdb.org/t/p/w92/${image}`} alt="Movie poster" /> : <p>No image found</p>} */}
-
-                
-
-
         </SmallCard>
     )
 }

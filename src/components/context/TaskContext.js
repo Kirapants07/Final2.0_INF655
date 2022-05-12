@@ -1,5 +1,4 @@
 import { useState, createContext, useEffect, useRef } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   addDoc,
   doc,
@@ -7,8 +6,6 @@ import {
   collection,
   updateDoc,
   deleteDoc,
-  where,
-  query,
 } from "firebase/firestore";
 import { db } from "../../firebase.config";
 import { useAuthStatus } from "../hooks/useAuth";
@@ -16,7 +13,6 @@ import { useAuthStatus } from "../hooks/useAuth";
 const TaskContext = createContext();
 
 export const TaskProvider = ({children}) => {
-    const [isLoading, setIsLoading] = useState();
     const [favoritesList, setFavoritesList] = useState([]);
     const [changeFavorites, setChangeFavorites] = useState(false);
     const [movieEdit, setMovieEdit] = useState({
@@ -29,13 +25,11 @@ export const TaskProvider = ({children}) => {
     const API_KEY = '2cc400c668df650508e7074fd7e11e01';
 
 
-    const { signedIn, checkingStatus, userUid } = useAuthStatus();
+    const { signedIn, userUid } = useAuthStatus();
 
     useEffect(() => {
         const fetchFavorites = async () => {
           const movieListRef = collection(db, "movieList");
-        //   const q = query(collection(db, "movieList"), where("user", "==", userUid));
-        //   const querySnapshot = await getDocs(q);
         const querySnapshot = await getDocs(movieListRef);
           const movieList = [];
           querySnapshot.forEach((doc) => {
@@ -50,13 +44,10 @@ export const TaskProvider = ({children}) => {
 
         };
         fetchFavorites();
-
-      }, [signedIn, changeFavorites]); //needs to check when page is refreshed
+      }, [signedIn, changeFavorites]);
 
     
     const GetMovies = (search) => {
-        const URL_BASE_SEARCHMOVIES = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`;
-
         useEffect (()=>{
             const fetchMovies = async () =>{
                 if (search){
@@ -64,13 +55,11 @@ export const TaskProvider = ({children}) => {
                         const response =  await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${search}`);
                         const movieList = await response.json();
                         setMovieData(movieList.results);
-    
                     } catch (err) {
                         console.log(err);
                     }
                   }
                 }
-              
                 fetchMovies();
                 
                 const movieDataById =[];
@@ -83,13 +72,10 @@ export const TaskProvider = ({children}) => {
                     }))
                     setMovieByID(movieDataById);
                 }
-                fetchTrailer();
-
-                
+                fetchTrailer();  
         }, [search] )
 
         let movieArray = [];
-
         try{
             if (movieById) {
               movieArray = movieById.map(i => {
@@ -97,10 +83,10 @@ export const TaskProvider = ({children}) => {
                 "id": i.id,
                 "title": i.original_title,
                 "director": i.credits.crew.filter(i => i.job == "Director")[0].name,
-                "category": i.genres, //need to link to category names
+                "category": i.genres,
                 "year": i.release_date,
-                "image": i.poster_path, //need to fetch
-                "trailer": i.videos, //need to link
+                "image": i.poster_path, 
+                "trailer": i.videos,
                 "ratings": i.vote_average
               };
               return movie;
@@ -109,9 +95,7 @@ export const TaskProvider = ({children}) => {
         }catch (err) {
           console.log(err);
         }
-
           return (movieArray);
-
     }
 
     const addMovie= async (newMovie) => {

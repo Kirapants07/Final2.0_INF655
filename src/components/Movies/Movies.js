@@ -8,7 +8,7 @@ import TaskContext from "../context/TaskContext";
 export default function Movies() {
     const [search, setSearch] = useState('');
     const { GetMovies } = useContext(TaskContext);
-    
+
     const result = GetMovies(search);
 
   if (!search || search.length === 0){

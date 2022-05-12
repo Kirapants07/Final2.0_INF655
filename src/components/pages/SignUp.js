@@ -43,9 +43,8 @@ export default function SignUp() {
             delete formDataCopy.password;
 
             await setDoc(doc(db, "users", user.uid), formDataCopy);
-
-            //go to homepage
             alert("New account created");
+            //go to homepage
             navigate("/");
         }catch (err) {
             alert(err);
@@ -91,7 +90,6 @@ export default function SignUp() {
                 </div>
             </Card>
         </form>
-
     </div>
   )
 }

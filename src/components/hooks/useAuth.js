@@ -10,7 +10,6 @@ export const useAuthStatus = () =>{
     const [useremail, setUseremail] = useState("Guest");
     const [userUid, setUserUid] = useState("");
 
-
     useEffect(() =>{
         if(isMounted){
         const auth = getAuth();

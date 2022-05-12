@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Link, Navigate, useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Card from '../shared/Card';
 import Header from './Header';
 import Navigation from './Navigation';
@@ -34,15 +34,15 @@ export default function SignIn() {
         } catch (err) {
             alert(err);
         }
-
     }
+
   return (
     <div>
         <Header />
         <Navigation />
         <form className="loginInput" onSubmit={handleSubmit}>
             <Card >
-            <h1>Sign In</h1>
+                <h1>Sign In</h1>
                 <div>
                     <input type="email" 
                     className= "inputbox"
@@ -68,7 +68,6 @@ export default function SignIn() {
                 </div>
             </Card>
         </form>
-
     </div>
   )
 }

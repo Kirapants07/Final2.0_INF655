@@ -19,7 +19,6 @@ function App() {
           <Route path="/sign-out" element={<SignOut />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-
         </Routes>
       </BrowserRouter>
     </TaskProvider>

@@ -9,10 +9,9 @@ export default function SignOut() {
     const auth = getAuth();
         signOut(auth).then(() => {
         // Sign-out successful. Return to homepage
-
         navigate('/');
         }).catch((error) => {
-        // An error happened.
+            console.log(error);
         });
         
 }

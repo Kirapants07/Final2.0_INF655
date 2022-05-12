@@ -7,10 +7,10 @@ import Navigation from './Navigation';
 
 
 export default function ForgotPassword() {
-
     const [email,setEmail] = useState("");
 
     const handleChange = (e) => setEmail(e.target.value);
+    
     const handleSubmit = async (e) =>{
         e.preventDefault();
         try{
@@ -25,11 +25,11 @@ export default function ForgotPassword() {
         
   return (
     <div>
-    <Header />
-    <Navigation />
-    <form className="loginInput" onSubmit={handleSubmit}>
+        <Header />
+        <Navigation />
+        <form className="loginInput" onSubmit={handleSubmit}>
         <Card >
-        <h1>Reset Password</h1>
+            <h1>Reset Password</h1>
             <div>
                 <input type="email" 
                 className= "inputbox"

@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import React from "react";
-import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+import { MdOutlineFavorite } from "react-icons/md";
 import Card from "../shared/Card";
 import TaskContext from "../context/TaskContext";
 
-export default function Movie({ fireId, id, title, image, director, category, year, trailer, ratings, checked, movie}) {
-    const {favorite, deleteMovie, checkMovie, editMovie, addMovie} = useContext(TaskContext);
+export default function Movie({ fireId, title, image, director, category, year, trailer, ratings }) {
+    const { deleteMovie} = useContext(TaskContext);
 
     return (
         <Card>
@@ -15,11 +15,8 @@ export default function Movie({ fireId, id, title, image, director, category, ye
                     <MdOutlineFavorite size={20} />
                     Remove From favorites</p>
                 </div>
-
             </button>
-
             <img src ={`https://image.tmdb.org/t/p/w185/${image}`} alt="Movie poster" />
-
             <h1 className="text-display">{title}</h1>
             <p className="text-display">Director: {director}</p>
             <p className="text-display">Categories: {category.map(i => i.name).join(', ')}</p>
@@ -30,9 +27,7 @@ export default function Movie({ fireId, id, title, image, director, category, ye
                     ? <a href= {`https://www.youtube.com/watch?v=${trailer.results[0].key}`} target="_blank" className="signuplinks">Watch Trailer</a>
                     : <p>No Trailer Found</p>
                 }
-                
-                </p>
-            {/* <p>{description}</p> */}
+            </p>
         </Card>
     )
 }
